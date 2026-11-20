@@ -1,26 +1,247 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --forest: #1a2a18;
+  --forest-mid: #2a3f27;
+  --forest-soft: #3d5340;
+  --lime: #d4e95c;
+  --lime-deep: #c6db4f;
+  --cream: #f8f7f2;
+  --cream-deep: #ebe8df;
+  --white: #ffffff;
+  --ink: #1a2a18;
+  --muted: #5f675b;
+  --line: rgba(26, 42, 24, 0.1);
+  --shadow-soft: 0 18px 50px rgba(26, 42, 24, 0.08);
+  --shadow-lift: 0 24px 60px rgba(26, 42, 24, 0.14);
+  --radius-card: 1.5rem;
+  --radius-panel: 2rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --background: var(--cream);
+  --foreground: var(--ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-forest: #1a2a18;
+  --color-forest-mid: #2a3f27;
+  --color-forest-soft: #3d5340;
+  --color-lime: #d4e95c;
+  --color-lime-deep: #c6db4f;
+  --color-cream: #f8f7f2;
+  --color-cream-deep: #ebe8df;
+  --color-white: #ffffff;
+  --color-ink: #1a2a18;
+  --color-muted: #5f675b;
+  --color-line: rgba(26, 42, 24, 0.1);
+  --font-display: var(--font-trekora-display), Georgia, serif;
+  --font-sans: var(--font-trekora-sans), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-trekora-sans), system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, #d0ef47 55%, white);
+  }
+
+  a,
+  button {
+    transition:
+      color 0.25s var(--ease-out),
+      background-color 0.25s var(--ease-out),
+      border-color 0.25s var(--ease-out),
+      transform 0.25s var(--ease-out),
+      box-shadow 0.25s var(--ease-out),
+      opacity 0.25s var(--ease-out);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--lime);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .font-display {
+    font-family: var(--font-trekora-display), Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .font-sans-tight {
+    font-family: var(--font-trekora-sans), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .container-x {
+    width: 100%;
+    max-width: 74rem;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-pad {
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .card-surface {
+    background: var(--white);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--lime);
+    color: var(--forest);
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 0.875rem 1.75rem;
+  }
+
+  .btn-primary:hover {
+    background: var(--lime-deep);
+    transform: translateY(-1px);
+  }
+
+  .btn-forest {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--forest);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 0.875rem 1.75rem;
+  }
+
+  .btn-forest:hover {
+    background: var(--forest-mid);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.875rem 1.75rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+  }
+
+  .input-field {
+    width: 100%;
+    border-radius: 0.9rem;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    padding: 0.85rem 1rem;
+    /* 16px minimum — avoids iOS Safari focus zoom */
+    font-size: 1rem;
+    color: var(--forest);
+    outline: none;
+    transition:
+      border-color 0.25s var(--ease-out),
+      box-shadow 0.25s var(--ease-out),
+      background-color 0.25s var(--ease-out);
+  }
+
+  .input-field:focus {
+    border-color: color-mix(in srgb, var(--forest) 45%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--lime) 35%, transparent);
+    background: white;
+  }
+
+  .nordlys-marquee {
+    animation: nordlys-marquee 42s linear infinite;
+  }
+
+  .nordlys-marquee-reverse {
+    animation: nordlys-marquee 48s linear infinite reverse;
+  }
+
+  .group\/marquee:hover .nordlys-marquee,
+  .group\/marquee:hover .nordlys-marquee-reverse,
+  .group\/marquee.is-paused .nordlys-marquee,
+  .group\/marquee.is-paused .nordlys-marquee-reverse {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nordlys-marquee,
+    .nordlys-marquee-reverse {
+      animation: none;
+    }
+  }
+}
+
+@keyframes nordlys-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
